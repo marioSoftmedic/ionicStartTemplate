@@ -35,6 +35,7 @@ const Home: React.FC = () => {
         <IonToolbar>
           <IonTitle>Hola Mundo 1</IonTitle>
         </IonToolbar>
+        “
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
