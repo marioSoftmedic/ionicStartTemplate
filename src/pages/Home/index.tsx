@@ -10,24 +10,12 @@ import "./styles.css";
 import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
 
 const Home: React.FC = () => {
-  // WEB
-  // GoogleAuth.initialize({
-  //   clientId:
-  //     "656892509205-6u4nf3tphb2vk5feknmnvc4e90ncpont.apps.googleusercontent.com",
-  //   scopes: ["profile", "email"],
-  //   grantOfflineAccess: true,
-  // });
-
-  // Android
-  GoogleAuth.initialize({
-    clientId:
-      "656892509205-bh1n3qjetjhoa4cnipegrts720ntb6o4.apps.googleusercontent.com",
-    scopes: ["profile", "email"],
-    grantOfflineAccess: true,
-  });
+  GoogleAuth.initialize();
 
   async function signIn() {
-    console.log(GoogleAuth.signIn());
+    const user = await GoogleAuth.signIn();
+
+    console.log(user);
   }
   return (
     <IonPage>
@@ -35,7 +23,6 @@ const Home: React.FC = () => {
         <IonToolbar>
           <IonTitle>Hola Mundo 1</IonTitle>
         </IonToolbar>
-        “
       </IonHeader>
       <IonContent fullscreen>
         <IonHeader collapse="condense">
