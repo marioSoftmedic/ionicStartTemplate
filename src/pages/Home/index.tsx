@@ -21,13 +21,32 @@ const ANDROID = isPlatform("android");
 const IOS = isPlatform("ios");
 const DESKTOP = isPlatform("desktop");
 
+const API_URL = "http://localhost:12321";
+
+function parseAndAttemptLogin(response: any, provider: "apple" | "google") {
+  const res = fetch(API_URL + "/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      provider,
+      response,
+    }),
+  }).then((res) => res.json);
+
+  console.log("El resultado es", res);
+}
+
 const Home: React.FC = () => {
   GoogleAuth.initialize();
 
   async function signIn() {
-    const user = await GoogleAuth.signIn();
+    const res = await GoogleAuth.signIn();
 
-    console.log(user);
+    console.log("Google login", res);
+
+    parseAndAttemptLogin(res, "google");
   }
   async function signInWithApple() {
     let options: SignInWithAppleOptions = {
@@ -41,7 +60,8 @@ const Home: React.FC = () => {
       .then((result: SignInWithAppleResponse) => {
         // Handle user information
         // Validate token with server and create new session
-        console.log("hola");
+        parseAndAttemptLogin(result, "apple");
+        console.log(result);
       })
       .catch((error) => {
         // Handle error
@@ -75,6 +95,7 @@ const Home: React.FC = () => {
         {DESKTOP && (
           <IonButton expand="block" onClick={signIn}>
             <IonIcon slot="start" icon={logoGoogle}></IonIcon> Login with Google
+            2
           </IonButton>
         )}
       </IonContent>
