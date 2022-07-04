@@ -5,6 +5,7 @@ import {
   IonPage,
   IonTitle,
   IonToolbar,
+  IonIcon,
 } from "@ionic/react";
 import "./styles.css";
 import { GoogleAuth } from "@codetrix-studio/capacitor-google-auth";
@@ -14,6 +15,7 @@ import {
   SignInWithAppleResponse,
   SignInWithAppleOptions,
 } from "@capacitor-community/apple-sign-in";
+import { logoApple, logoGoogle } from "ionicons/icons";
 
 const ANDROID = isPlatform("android");
 const IOS = isPlatform("ios");
@@ -60,11 +62,21 @@ const Home: React.FC = () => {
           </IonToolbar>
         </IonHeader>
         {IOS && (
-          <IonButton onClick={signInWithApple}>Login with APPLE</IonButton>
+          <IonButton onClick={signInWithApple}>
+            <IonIcon icon={logoApple}></IonIcon> Login with APPLE
+          </IonButton>
         )}
 
-        {ANDROID && <IonButton onClick={signIn}>Login with Google</IonButton>}
-        {DESKTOP && <IonButton onClick={signIn}>Login with Google</IonButton>}
+        {ANDROID && (
+          <IonButton expand="block" onClick={signIn}>
+            <IonIcon icon={logoGoogle}></IonIcon> Login with Google
+          </IonButton>
+        )}
+        {DESKTOP && (
+          <IonButton expand="block" onClick={signIn}>
+            <IonIcon slot="start" icon={logoGoogle}></IonIcon> Login with Google
+          </IonButton>
+        )}
       </IonContent>
     </IonPage>
   );
